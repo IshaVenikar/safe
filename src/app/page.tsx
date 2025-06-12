@@ -37,7 +37,7 @@ export default function Home() {
         fontWeight="bold"
         color={headingColor}
       >
-        Beautiful Animals
+        Up For Adoption
       </Heading>
 
       <Box w="80%" mx="auto">
