@@ -24,7 +24,7 @@ export default function Home() {
       px={4}
       minH="100vh"
       bg={bg}
-      maxW="80vw"
+      w="100%"
       mx="auto"
     >
       <Box
@@ -48,32 +48,34 @@ export default function Home() {
         Beautiful Animals
       </Heading>
 
-      <SimpleGrid columns={{ base: 1, sm: 2, md: 3, lg: 4 }} gap={8}>
-        {animals.map((animal, idx) => (
-          <Card.Root key={idx} maxW="sm" overflow="hidden" variant="elevated">
-            <Image
-              src={animal.image}
-              alt={animal.name}
-              objectFit="cover"
-              w="100%"
-              h="220px"
-            />
-            <Card.Body gap={2}>
-              <Card.Title>{animal.name}</Card.Title>
-              <Card.Description>{animal.description}</Card.Description>
-              <Text textStyle="sm" color="gray.500" mt={2}>
-                #{idx + 1}
-              </Text>
-            </Card.Body>
-            <Card.Footer gap={2}>
-              <Button variant="solid" colorScheme="teal">
-                View
-              </Button>
-              <Button variant="ghost">Share</Button>
-            </Card.Footer>
-          </Card.Root>
-        ))}
-      </SimpleGrid>
+      <Box w="80%" mx="auto">
+        <SimpleGrid columns={{ base: 1, sm: 2, md: 3, lg: 4 }} gap={8}>
+          {animals.map((animal, idx) => (
+            <Card.Root key={idx} maxW="sm" overflow="hidden" variant="elevated">
+              <Image
+                src={animal.image}
+                alt={animal.name}
+                objectFit="cover"
+                w="100%"
+                h="220px"
+              />
+              <Card.Body gap={2}>
+                <Card.Title>{animal.name}</Card.Title>
+                <Card.Description>{animal.description}</Card.Description>
+                <Text textStyle="sm" color="gray.500" mt={2}>
+                  #{idx + 1}
+                </Text>
+              </Card.Body>
+              <Card.Footer gap={2}>
+                <Button variant="solid" colorScheme="teal">
+                  View
+                </Button>
+                <Button variant="ghost">Share</Button>
+              </Card.Footer>
+            </Card.Root>
+          ))}
+        </SimpleGrid>
+      </Box>
     </Box>
   );
 }
