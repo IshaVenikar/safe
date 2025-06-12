@@ -10,13 +10,14 @@ import {
 } from "@chakra-ui/react";
 import { Card } from "@chakra-ui/react";
 import { animals } from "./animals";
-import ThemeToggleButton from "../components/ThemeToggleButton";
 import { useColorMode } from "../components/ui/color-mode";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
   const { colorMode } = useColorMode();
   const bg = colorMode === "dark" ? "gray.900" : "gray.50";
   const headingColor = colorMode === "dark" ? "gray.100" : "gray.900";
+  const router = useRouter();
 
   return (
     <Box
@@ -26,17 +27,8 @@ export default function Home() {
       bg={bg}
       w="100%"
       mx="auto"
+      position="relative"
     >
-      <Box
-        as="header"
-        w="100%"
-        mb={8}
-        display="flex"
-        alignItems="center"
-        justifyContent="flex-end"
-      >
-        <ThemeToggleButton />
-      </Box>
 
       <Heading
         mb={8}
@@ -76,6 +68,24 @@ export default function Home() {
           ))}
         </SimpleGrid>
       </Box>
+      {/* Floating Action Button */}
+      <Button
+        position="fixed"
+        bottom={8}
+        right={8}
+        zIndex={1000}
+        colorScheme="teal"
+        borderRadius="full"
+        boxShadow="0 4px 16px #0003"
+        size="lg"
+        px={6}
+        py={6}
+        fontSize="md"
+        onClick={() => router.push("/register-animal")}
+        aria-label="Register Animal"
+      >
+        Register a baby
+      </Button>
     </Box>
   );
 }
