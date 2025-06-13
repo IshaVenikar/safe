@@ -5,8 +5,8 @@ import { useColorMode } from "@/components/ui/color-mode";
 
 export default function RegisterAnimalPage() {
   const { colorMode } = useColorMode();
-  const bg = colorMode === "dark" ? "#18181b" : "#fff";
-  const textColor = colorMode === "dark" ? "#f4f4f5" : "#222";
+  const bg = colorMode === "dark" ? "#F5DEB3" : "#EADDCA";
+  const textColor = colorMode === "dark" ? "#C19A6B" : "#6B4F27";
 
   const [form, setForm] = useState({ name: "", age: "", description: "" });
   const [submitted, setSubmitted] = useState(false);
