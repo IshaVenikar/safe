@@ -1,25 +1,21 @@
 'use client';
 
+import { useRouter } from "next/navigation";
 import {
   Box,
   SimpleGrid,
-  Image,
   Heading,
-  Text,
   Button,
 } from "@chakra-ui/react";
-import { Card } from "@chakra-ui/react";
-import { animals } from "./animals";
+import { animals } from "../animals";
 import { useColorMode } from "../components/ui/color-mode";
-import { useRouter } from "next/navigation";
+import CardItem from "@/components/CardItem";
 
 export default function Home() {
   const { colorMode } = useColorMode();
+
   const bg = colorMode === "dark" ? "#6B4F27" : "#EADDCA";
   const headingColor = colorMode === "dark" ? "#C19A6B" : "#6B4F27";
-  const cardBg = colorMode === "dark" ? "#C19A6B" : "#fff";
-  const cardText = colorMode === "dark" ? "#fff" : "#6B4F27";
-  const cardDesc = colorMode === "dark" ? "#EADDCA" : "#C19A6B";
   const buttonBg = colorMode === "dark" ? "#6B4F27" : "#C19A6B";
   const buttonColor = colorMode === "dark" ? "#fff" : "#fff";
   const buttonHover = colorMode === "dark" ? "#EADDCA" : "#F5DEB3";
@@ -48,43 +44,10 @@ export default function Home() {
       <Box w="80%" mx="auto">
         <SimpleGrid columns={{ base: 1, sm: 2, md: 3, lg: 4 }} gap={8}>
           {animals.map((animal, idx) => (
-            <Card.Root key={idx} maxW="sm" overflow="hidden" variant="elevated" style={{ background: cardBg, color: cardText, borderRadius: 16, boxShadow: "0 2px 8px #0001" }}>
-              <Image
-                src={animal.image}
-                alt={animal.name}
-                objectFit="cover"
-                w="100%"
-                h="220px"
-                style={{ borderTopLeftRadius: 16, borderTopRightRadius: 16 }}
-              />
-              <Card.Body gap={2}>
-                <Card.Title style={{ color: cardText }}>{animal.name}</Card.Title>
-                <Card.Description style={{ color: cardDesc }}>{animal.description}</Card.Description>
-                <Text textStyle="sm" mt={2} style={{ color: cardDesc }}>
-                  #{idx + 1}
-                </Text>
-              </Card.Body>
-              <Card.Footer gap={2}>
-                <Button
-                  style={{ background: buttonBg, color: buttonColor, borderRadius: 8, fontWeight: 600 }}
-                  _hover={{ background: buttonHover, color: buttonBg }}
-                  variant="solid"
-                >
-                  View
-                </Button>
-                <Button
-                  style={{ background: "transparent", color: buttonBg, borderRadius: 8, fontWeight: 600, border: `1px solid ${buttonBg}` }}
-                  _hover={{ background: buttonHover, color: buttonBg }}
-                  variant="outline"
-                >
-                  Share
-                </Button>
-              </Card.Footer>
-            </Card.Root>
+            <CardItem key={idx} animal={animal} idx={idx} theme={{ buttonBg, buttonColor, buttonHover }} />
           ))}
         </SimpleGrid>
       </Box>
-      {/* Floating Action Button */}
       <Button
         position="fixed"
         bottom={8}

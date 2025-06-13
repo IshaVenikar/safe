@@ -1,8 +1,8 @@
 "use client";
 
-import ThemeToggleButton from "../components/ThemeToggleButton";
 import Link from "next/link";
 import { Flex } from "@chakra-ui/react";
+import ThemeToggleButton from "../components/ThemeToggleButton";
 import { useColorMode } from "../components/ui/color-mode";
 
 export default function NavBar() {
@@ -29,7 +29,7 @@ export default function NavBar() {
         href="/"
         style={{
           fontWeight: 500,
-          fontSize: 20,
+          fontSize: 25,
           textDecoration: "none",
           color: navText,
           letterSpacing: 1,
