@@ -60,8 +60,8 @@ export default function Home() {
         px={6}
         py={6}
         fontSize="md"
-        onClick={() => router.push("/register-animal")}
-        aria-label="Register Animal"
+        onClick={() => router.push("/register")}
+        aria-label="Register"
         style={{ background: buttonBg, color: buttonColor, borderRadius: 32, fontWeight: 700 }}
         _hover={{ background: buttonHover, color: buttonBg }}
       >
