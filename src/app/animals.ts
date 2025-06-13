@@ -15,11 +15,6 @@ export const animals = [
     description: "The tiger is the largest living cat species and a member of the genus Panthera.",
   },
   {
-    name: "Giraffe",
-    image: "https://images.unsplash.com/photo-1463453091185-61582044d556?auto=format&fit=crop&w=400&q=80",
-    description: "The giraffe is an African artiodactyl mammal, the tallest living terrestrial animal.",
-  },
-  {
     name: "Zebra",
     image: "https://images.unsplash.com/photo-1468421870903-4df1664ac249?auto=format&fit=crop&w=400&q=80",
     description: "Zebras are African equines with distinctive black-and-white striped coats.",
@@ -33,11 +28,6 @@ export const animals = [
     name: "Penguin",
     image: "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80",
     description: "Penguins are a group of aquatic flightless birds. They live almost exclusively in the Southern Hemisphere.",
-  },
-  {
-    name: "Koala",
-    image: "https://images.unsplash.com/photo-1463453091185-61582044d556?auto=format&fit=crop&w=400&q=80",
-    description: "The koala is an arboreal herbivorous marsupial native to Australia.",
   },
   {
     name: "Wolf",
@@ -63,11 +53,6 @@ export const animals = [
     name: "Rhinoceros",
     image: "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80",
     description: "Rhinoceros are large, herbivorous mammals identified by their characteristic horned snouts.",
-  },
-  {
-    name: "Hippopotamus",
-    image: "https://images.unsplash.com/photo-1463453091185-61582044d556?auto=format&fit=crop&w=400&q=80",
-    description: "The hippopotamus is a large, mostly herbivorous, semiaquatic mammal native to sub-Saharan Africa.",
   },
   {
     name: "Camel",
