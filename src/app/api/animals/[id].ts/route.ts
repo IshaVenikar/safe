@@ -5,11 +5,11 @@ export async function GET(_: Request, { params }: { params: { id: string } }) {
   try {
     const animal = await prismaClient.animal.findUnique({ where: { id: params.id } });
     if (!animal) {
-      return NextResponse.json({ error: 'Animal not found' }, { status: 404 });
+      return NextResponse.json({ error: 'Fur baby not found' }, { status: 404 });
     }
     return NextResponse.json(animal);
   } catch {
-    return NextResponse.json({ error: 'Failed to fetch animal' }, { status: 500 });
+    return NextResponse.json({ error: 'Failed to fetch fur baby' }, { status: 500 });
   }
 }
 
@@ -22,15 +22,15 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
     });
     return NextResponse.json(updated);
   } catch {
-    return NextResponse.json({ error: 'Failed to update animal' }, { status: 500 });
+    return NextResponse.json({ error: 'Failed to update fur baby' }, { status: 500 });
   }
 }
 
 export async function DELETE(_: Request, { params }: { params: { id: string } }) {
   try {
     await prismaClient.animal.delete({ where: { id: params.id } });
-    return NextResponse.json({ message: 'Animal deleted' });
+    return NextResponse.json({ message: 'Fur baby deleted' });
   } catch {
-    return NextResponse.json({ error: 'Failed to delete animal' }, { status: 500 });
+    return NextResponse.json({ error: 'Failed to delete fur baby' }, { status: 500 });
   }
 }

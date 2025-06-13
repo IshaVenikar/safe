@@ -1,7 +1,7 @@
 // components/CardItem.tsx
 "use client";
 
-import { Card, Image, Text, Button } from "@chakra-ui/react";
+import { Card, Image } from "@chakra-ui/react";
 import { useColorMode } from "./ui/color-mode";
 
 export default function CardItem({ animal, idx, theme }: {
@@ -48,33 +48,6 @@ export default function CardItem({ animal, idx, theme }: {
           {animal.description}
         </Card.Description>
       </Card.Body>
-      <Card.Footer gap={2}>
-        <Button
-          style={{
-            background: theme.buttonBg,
-            color: theme.buttonColor,
-            borderRadius: 8,
-            fontWeight: 600,
-          }}
-          _hover={{ background: theme.buttonHover, color: theme.buttonBg }}
-          variant="solid"
-        >
-          View
-        </Button>
-        <Button
-          style={{
-            background: "transparent",
-            color: theme.buttonBg,
-            borderRadius: 8,
-            fontWeight: 600,
-            border: `1px solid ${theme.buttonBg}`,
-          }}
-          _hover={{ background: theme.buttonHover, color: theme.buttonBg }}
-          variant="outline"
-        >
-          Share
-        </Button>
-      </Card.Footer>
     </Card.Root>
   );
 }

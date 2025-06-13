@@ -7,7 +7,7 @@ export async function GET() {
     const animals = await prismaClient.animal.findMany();
     return NextResponse.json(animals);
   } catch (err) {
-    return NextResponse.json({ error: 'Failed to fetch animals' }, { status: 500 });
+    return NextResponse.json({ error: 'Failed to fetch fur babies' }, { status: 500 });
   }
 }
 
@@ -18,10 +18,11 @@ export async function POST(req: Request) {
 
     const newAnimal = await prismaClient.animal.create({
       data: {
-        kind: data.kind,
+        name: data.name,
         age: data.age,
         details: data.details,
         status: data.status ?? 'Avl',
+        contact: data.contact,
         user: {
           connect: {
             id: data.userId,
@@ -32,9 +33,9 @@ export async function POST(req: Request) {
 
     return NextResponse.json(newAnimal, { status: 201 });
   } catch (err) {
-    console.error('Error registering animal:', err);
+    console.error('Error registering fur baby:', err);
     return NextResponse.json(
-      { error: 'Failed to register animal', details: String(err) },
+      { error: 'Failed to register fur baby', details: String(err) },
       { status: 500 }
     );
   }

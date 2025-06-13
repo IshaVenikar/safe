@@ -1,33 +1,41 @@
 @import "tailwindcss";
 
-/* @font-face {
+/* Optional custom font
+@font-face {
   font-family: 'BarberChop';
   src: url('/fonts/BarberChop.otf') format('opentype');
   font-weight: normal;
   font-style: normal;
-} */
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: sans-serif;
 }
+*/
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+  --background: #EADDCA;
+  --foreground: #6B4F27;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-bg-light: #EADDCA;
+  --color-bg-dark: #6B4F27;
+  --color-text-light: #6B4F27;
+  --color-text-dark: #C19A6B;
+
+  --color-button-light: #C19A6B;
+  --color-button-dark: #6B4F27;
+  --color-button-hover-light: #F5DEB3;
+  --color-button-hover-dark: #EADDCA;
+
+  --font-sans: var(--font-geist-sans, sans-serif);
+  --font-mono: var(--font-geist-mono, monospace);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #F5DEB3;
+    --foreground: #6B4F27;
   }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
 }
