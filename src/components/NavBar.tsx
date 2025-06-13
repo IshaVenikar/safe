@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Flex } from "@chakra-ui/react";
 import ThemeToggleButton from "../components/ThemeToggleButton";
 import { useColorMode } from "../components/ui/color-mode";
+import LogoutButton from "../components/LogoutButton";
 
 export default function NavBar() {
   const { colorMode } = useColorMode();
@@ -38,7 +39,10 @@ export default function NavBar() {
       >
         Safe
       </Link>
-      <ThemeToggleButton />
+      <Flex alignItems="center">
+        <ThemeToggleButton />
+        <LogoutButton />
+      </Flex>
     </Flex>
   );
 }

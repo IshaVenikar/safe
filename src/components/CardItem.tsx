@@ -47,9 +47,6 @@ export default function CardItem({ animal, idx, theme }: {
         <Card.Description style={{ color: cardDesc }}>
           {animal.description}
         </Card.Description>
-        <Text textStyle="sm" mt={2} style={{ color: cardDesc }}>
-          #{idx + 1}
-        </Text>
       </Card.Body>
       <Card.Footer gap={2}>
         <Button
