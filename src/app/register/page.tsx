@@ -89,7 +89,7 @@ export default function RegisterAnimalForm() {
         <VStack align="stretch">
           <FormControl isRequired>
             <FormLabel color={textColor}>Name</FormLabel>
-            <Input placeholder="What should be call the baby?"  {...register('name')} />
+            <Input placeholder="What should we call the baby?"  {...register('name')} />
           </FormControl>
 
           <FormControl isRequired>
