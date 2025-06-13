@@ -28,7 +28,6 @@ export default function RegisterAnimalForm() {
     reset,
     formState: { errors, isSubmitting },
   } = useForm<FormData>();
-
   const { colorMode } = useColorMode();
 
   const bg = colorMode === 'dark' ? '#F5DEB3' : '#EADDCA';
