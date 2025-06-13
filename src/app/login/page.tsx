@@ -25,7 +25,7 @@ export default function LoginPage() {
       alignItems="flex-start"
       justifyContent="center"
       px={2}
-      pt={20} // Add padding top to move form higher
+      pt={20}
     >
       <Box
         bg="white"

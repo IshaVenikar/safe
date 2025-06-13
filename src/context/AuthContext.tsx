@@ -27,7 +27,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       setLoading(false)
     }
 
-    getSession()
+    getSession();
 
     const { data: listener } = supabase.auth.onAuthStateChange((event, session) => {
       setSession(session)
@@ -44,6 +44,25 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     setSession(null)
     setUser(null)
   }
+
+  const setUserData = async () => {
+    if (!user) return;
+    console.log('Setting user data:', user.id, user.email);
+    await fetch('/api/users', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        id: user.id,
+        email: user.email,
+      }),
+    });
+  }
+
+  useEffect(() => {
+    if (user) {
+      setUserData();
+    }
+  }, [user]);
 
   return (
     <AuthContext.Provider value={{ user, session, loading, logout }}>

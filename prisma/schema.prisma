@@ -16,11 +16,10 @@ datasource db {
 
 model User {
   id            String   @id @default(uuid())
-  username      String   @unique
-  password      String
-  type          UserType // "single" or "organization"
-  role          UserRole // "adopter" or "registrar"
-  contact       Json     // for phone, email, etc.
+  email         String   @unique
+  type          UserType? // "single" or "organization"
+  role          UserRole? // "adopter" or "registrar"
+  contact       Json?     // for phone, email, etc.
   animals       Animal[] // 1-to-many relation
   createdAt     DateTime @default(now())
 }
@@ -29,8 +28,8 @@ model Animal {
   id        String    @id @default(uuid())
   kind      String
   age       Int
-  details   Json
-  status    AnimalStatus
+  details   String
+  status    AnimalStatus?
   userId    String
   user      User      @relation(fields: [userId], references: [id])
   createdAt DateTime  @default(now())

@@ -31,13 +31,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-
         <ChakraProvider>
-                <AuthProvider>
-          <Box minH="100vh" display="flex" flexDirection="column">
-            <NavBar />
-            <Box flex={1}>{children}</Box>
-          </Box>
+          <AuthProvider>
+            <Box minH="100vh" display="flex" flexDirection="column">
+              <NavBar />
+              <Box flex={1}>{children}</Box>
+            </Box>
           </AuthProvider>
         </ChakraProvider>
       </body>
