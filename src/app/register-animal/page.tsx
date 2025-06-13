@@ -1,79 +1,125 @@
 'use client';
 
-import React, { useState } from "react";
-import { useColorMode } from "@/components/ui/color-mode";
+import { useForm } from 'react-hook-form';
+import {
+  Box,
+  Button,
+  Input,
+  Textarea,
+  VStack,
+  Text,
+} from '@chakra-ui/react';
+import { FormLabel, FormControl } from "@chakra-ui/form-control";
+import { Toaster, toaster } from "@/components/ui/toaster"
+import { useColorMode } from '@/components/ui/color-mode';
 
-export default function RegisterAnimalPage() {
+type FormData = {
+  kind: string;
+  age: number;
+  details: string;
+  status: 'Avl' | 'Adopted';
+  userId: string;
+};
+
+export default function RegisterAnimalForm() {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm<FormData>();
+
   const { colorMode } = useColorMode();
-  const bg = colorMode === "dark" ? "#F5DEB3" : "#EADDCA";
-  const textColor = colorMode === "dark" ? "#C19A6B" : "#6B4F27";
 
-  const [form, setForm] = useState({ name: "", age: "", description: "" });
-  const [submitted, setSubmitted] = useState(false);
+  const bg = colorMode === 'dark' ? '#F5DEB3' : '#EADDCA';
+  const textColor = colorMode === 'dark' ? '#C19A6B' : '#6B4F27';
+  const buttonBg = colorMode === 'dark' ? '#6B4F27' : '#C19A6B';
+  const buttonHover = colorMode === 'dark' ? '#EADDCA' : '#F5DEB3';
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
+  const onSubmit = async (data: FormData) => {
+    try {
+      const res = await fetch('/api/animals', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...data,
+          details: JSON.parse(data.details),
+        }),
+      });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubmitted(true);
+      if (!res.ok) throw new Error('Failed to register animal');
+
+      toaster.create({
+        title: "Animal registered successfully!",
+        type: "success",
+        duration: 3000,
+        closable: true,
+      })
+
+      reset();
+    } catch (error) {
+      toaster.create({
+        title: "Error registering animal.",
+        description: (error as Error).message,
+        type: "error",
+        duration: 3000,
+        closable: true,
+      })
+    }
   };
 
   return (
-    <div style={{ maxWidth: 500, margin: "2rem auto", padding: 24, background: bg, borderRadius: 12, boxShadow: "0 2px 8px #0001", color: textColor, transition: "background 0.3s, color 0.3s" }}>
-      <h1 style={{ marginBottom: 24 }}>Register a New Animal</h1>
-      {submitted ? (
-        <div>
-          <h2>Animal Registered!</h2>
-          <p><strong>Name:</strong> {form.name}</p>
-          <p><strong>Age:</strong> {form.age}</p>
-          <p><strong>Description:</strong> {form.description}</p>
-        </div>
-      ) : (
-        <form onSubmit={handleSubmit}>
-          <div style={{ marginBottom: 16 }}>
-            <label htmlFor="name" style={{ display: "block", marginBottom: 4 }}>Name</label>
-            <input
-              id="name"
-              name="name"
-              type="text"
-              value={form.name}
-              onChange={handleChange}
-              required
-              style={{ width: "100%", padding: 8, borderRadius: 4, border: "1px solid #ccc" }}
+    <Box
+      maxW="md"
+      mx="auto"
+      mt={8}
+      p={6}
+      borderRadius="lg"
+      bg={bg}
+      boxShadow="lg"
+      color={textColor}
+    >
+      <Text fontSize="2xl" fontWeight="bold" mb={4} textAlign="center">
+        Register a New Animal
+      </Text>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <VStack align="stretch">
+          <FormControl isRequired>
+            <FormLabel color={textColor}>Kind</FormLabel>
+            <Input placeholder="e.g., Dog, Cat" {...register('kind')} />
+          </FormControl>
+
+          <FormControl isRequired>
+            <FormLabel color={textColor}>Age</FormLabel>
+            <Input type="number" {...register('age', { valueAsNumber: true })} />
+          </FormControl>
+
+          <FormControl isRequired>
+            <FormLabel color={textColor}>Details (JSON)</FormLabel>
+            <Textarea
+              placeholder='{"color": "brown", "breed": "Labrador"}'
+              {...register('details')}
             />
-          </div>
-          <div style={{ marginBottom: 16 }}>
-            <label htmlFor="age" style={{ display: "block", marginBottom: 4 }}>Age</label>
-            <input
-              id="age"
-              name="age"
-              type="number"
-              min="0"
-              value={form.age}
-              onChange={handleChange}
-              required
-              style={{ width: "100%", padding: 8, borderRadius: 4, border: "1px solid #ccc" }}
-            />
-          </div>
-          <div style={{ marginBottom: 24 }}>
-            <label htmlFor="description" style={{ display: "block", marginBottom: 4 }}>Description</label>
-            <textarea
-              id="description"
-              name="description"
-              value={form.description}
-              onChange={handleChange}
-              required
-              rows={4}
-              style={{ width: "100%", padding: 8, borderRadius: 4, border: "1px solid #ccc" }}
-            />
-          </div>
-          <button type="submit" style={{ padding: "10px 24px", borderRadius: 6, background: "#0070f3", color: "#fff", border: "none", fontWeight: 600, cursor: "pointer" }}>
-            Register
-          </button>
-        </form>
-      )}
-    </div>
+          </FormControl>
+
+          <FormControl isRequired>
+            <FormLabel color={textColor}>User ID</FormLabel>
+            <Input placeholder="Enter User UUID" {...register('userId')} />
+          </FormControl>
+
+          <Button
+            type="submit"
+            bg={buttonBg}
+            color="white"
+            _hover={{ bg: buttonHover, color: buttonBg }}
+            loading={isSubmitting}
+            w="full"
+          >
+            Register Animal
+          </Button>
+        </VStack>
+      </form>
+      <Toaster />
+    </Box>
   );
 }
