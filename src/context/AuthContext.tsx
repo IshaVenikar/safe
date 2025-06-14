@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, useContext, useEffect, useState } from 'react'
+import { createContext, useCallback, useContext, useEffect, useState } from 'react'
 import { Session, User } from '@supabase/supabase-js'
 import { createClient } from '@/lib/supabase-auth/client'
 import { useRouter } from 'next/navigation'
@@ -47,9 +47,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     setUser(null);
   }
 
-  const setUserData = async () => {
+  const setUserData = useCallback(async () => {
     if (!user) return;
-    console.log('Setting user data:', user.id, user.email);
+
     await fetch('/api/users', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -58,13 +58,13 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         email: user.email,
       }),
     });
-  }
+  }, [user]);
 
   useEffect(() => {
     if (user) {
       setUserData();
     }
-  }, [user]);
+  }, [user, setUserData]);
 
   useEffect(() => {
     if (!loading) {

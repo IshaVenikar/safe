@@ -7,7 +7,7 @@ export async function GET() {
     const animals = await prismaClient.animal.findMany();
     return NextResponse.json(animals);
   } catch (err) {
-    return NextResponse.json({ error: 'Failed to fetch fur babies' }, { status: 500 });
+    return NextResponse.json({ error: 'Failed to fetch fur babies', details: String(err) }, { status: 500 });
   }
 }
 
