@@ -3,10 +3,18 @@ import { prismaClient } from '@/lib/prisma';
 
 export async function GET(_: Request, { params }: { params: { id: string } }) {
   try {
-    const animal = await prismaClient.animal.findUnique({ where: { id: params.id } });
+    const animal = await prismaClient.animal.findUnique({ where: { id: params.id }, include: {
+      user: {
+        select: {
+          email: true,
+        },
+      },
+    } });
+
     if (!animal) {
       return NextResponse.json({ error: 'Fur baby not found' }, { status: 404 });
     }
+
     return NextResponse.json(animal);
   } catch {
     return NextResponse.json({ error: 'Failed to fetch fur baby' }, { status: 500 });

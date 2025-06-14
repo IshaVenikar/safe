@@ -1,4 +1,3 @@
-// components/CardItem.tsx
 "use client";
 
 import { Card, Flex, Image, Separator, Text } from "@chakra-ui/react";
@@ -54,7 +53,7 @@ export default function CardItem({ animal }: { animal: Animal }) {
                 size="sm"
                 style={{
                   background: colorMode === "dark" ? "#C19A6B" : "#EADDCA",
-                  color: colorMode === "dark" ? "#6B4F27" : "#6B4F27",
+                  color: colorMode === "dark" ? "#EADDCA" : "#C19A6B",
                   transition: "background 0.3s, color 0.3s, border 0.3s"
                 }}
               >
@@ -66,7 +65,16 @@ export default function CardItem({ animal }: { animal: Animal }) {
         <Separator borderColor={cardText} />
 
         <Card.Description style={{ color: cardDesc }}>
-          {animal.details}
+          <Text
+            as="span"
+            whiteSpace="nowrap"
+            overflow="hidden"
+            textOverflow="ellipsis"
+            display="inline-block"
+            maxWidth="100%"
+          >
+            {animal.details}
+          </Text>
         </Card.Description>
       </Card.Body>
     </Card.Root>
