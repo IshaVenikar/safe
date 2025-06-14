@@ -7,10 +7,8 @@ import {
   SimpleGrid,
   Heading,
   Button,
-  VStack,
   Skeleton,
 } from "@chakra-ui/react";
-import { Spinner } from "@chakra-ui/react"
 import { useColorMode } from "../components/ui/color-mode";
 import CardItem from "@/components/CardItem";
 

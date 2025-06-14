@@ -14,13 +14,6 @@ A cozy space to share and find loving homes for stray and adoptable furry friend
 
 - Follow these [steps](https://supabase.com/docs/guides/database/prisma?queryGroups=migrate&migrate=pnpm_migrate) to setup prisma with supabase
 
-- Run the following on updating prisma schema to regenerate client build code
-
-    ```bash
-    npx prisma db push
-    npx prisma generate
-    ```
-
 - Copy over example .env
 
     ```bash
