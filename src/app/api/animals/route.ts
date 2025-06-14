@@ -14,18 +14,19 @@ export async function GET() {
 // POST /api/animals
 export async function POST(req: Request) {
   try {
-    const data = await req.json();
+    const { name, age, details, userId, imageUrl, contact } = await req.json();
 
     const newAnimal = await prismaClient.animal.create({
       data: {
-        name: data.name,
-        age: data.age,
-        details: data.details,
-        status: data.status ?? 'Avl',
-        contact: data.contact,
+        name,
+        age,
+        details,
+        status: 'Avl',
+        contact,
+        imageUrl,
         user: {
           connect: {
-            id: data.userId,
+            id: userId,
           },
         },
       },

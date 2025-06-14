@@ -10,15 +10,16 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { FormLabel, FormControl } from "@chakra-ui/form-control";
-import { Toaster, toaster } from "@/components/ui/toaster"
+import { Toaster, toaster } from '@/components/ui/toaster';
 import { useColorMode } from '@/components/ui/color-mode';
 import { useAuth } from '@/context/AuthContext';
+import { createClient } from '@/lib/supabase-auth/client';
 
 type FormData = {
   name: string;
   age: number;
   details: string;
-  status: 'Avl' | 'Adopted';
+  imageUrl: FileList;
   contact: number;
 };
 
@@ -31,6 +32,7 @@ export default function RegisterAnimalForm() {
   } = useForm<FormData>();
   const { colorMode } = useColorMode();
   const { user } = useAuth();
+  const supabase = createClient();
 
   const bg = colorMode === 'dark' ? '#F5DEB3' : '#EADDCA';
   const textColor = colorMode === 'dark' ? '#C19A6B' : '#6B4F27';
@@ -39,13 +41,30 @@ export default function RegisterAnimalForm() {
 
   const onSubmit = async (data: FormData) => {
     try {
+      const imageFile = data.imageUrl[0];
+
+      const fileExt = imageFile.name.split('.').pop();
+      const filePath = `furry-${Date.now()}.${fileExt}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from('furbaby-images')
+        .upload(filePath, imageFile);
+
+      if (uploadError) throw uploadError;
+
+      const {
+        data: { publicUrl },
+      } = supabase.storage.from('furbaby-images').getPublicUrl(filePath);
+
       const res = await fetch('/api/animals', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          ...data,
-          contact: Number(data.contact),
+          name: data.name,
+          age: data.age,
           details: data.details,
+          contact: Number(data.contact),
+          imageUrl: publicUrl,
           userId: user?.id,
         }),
       });
@@ -53,21 +72,21 @@ export default function RegisterAnimalForm() {
       if (!res.ok) throw new Error('Failed to register fur baby');
 
       toaster.create({
-        title: "Fur baby registered successfully!",
-        type: "success",
+        title: 'Fur baby registered successfully!',
+        type: 'success',
         duration: 3000,
         closable: true,
-      })
+      });
 
       reset();
     } catch (error) {
       toaster.create({
-        title: "Error registering fur baby.",
+        title: 'Error registering fur baby.',
         description: (error as Error).message,
-        type: "error",
+        type: 'error',
         duration: 3000,
         closable: true,
-      })
+      });
     }
   };
 
@@ -89,22 +108,43 @@ export default function RegisterAnimalForm() {
         <VStack align="stretch">
           <FormControl isRequired>
             <FormLabel color={textColor}>Name</FormLabel>
-            <Input placeholder="What should we call the baby?"  {...register('name')} />
+            <Input placeholder="What should we call the baby?" {...register('name')} />
           </FormControl>
 
           <FormControl isRequired>
             <FormLabel color={textColor}>Age</FormLabel>
-            <Input placeholder="How old is the baby?" type="number" {...register('age', { valueAsNumber: true })} />
+            <Input
+              placeholder="How old is the baby?"
+              type="number"
+              {...register('age', { valueAsNumber: true })}
+            />
           </FormControl>
 
           <FormControl isRequired>
             <FormLabel color={textColor}>Description</FormLabel>
-            <Textarea placeholder="Please tell us something about the baby" {...register('details')} />
+            <Textarea
+              placeholder="Please tell us something about the baby"
+              {...register('details')}
+            />
           </FormControl>
 
           <FormControl isRequired>
             <FormLabel color={textColor}>Contact Number</FormLabel>
-            <Input placeholder="How do we contact you?" type="number" {...register('contact')} />
+            <Input
+              placeholder="How do we contact you?"
+              type="number"
+              {...register('contact', { valueAsNumber: true })}
+            />
+          </FormControl>
+
+          <FormControl isRequired>
+            <FormLabel color={textColor}>Upload a cute picture of the baby</FormLabel>
+            <Input
+              type="file"
+              accept="image/*"
+              multiple={false}
+              {...register('imageUrl', { required: true })}
+            />
           </FormControl>
 
           <Button

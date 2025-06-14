@@ -30,6 +30,7 @@ model Animal {
   details   String
   status    AnimalStatus?
   contact   Int
+  imageUrl  String?
   userId    String
   user      User      @relation(fields: [userId], references: [id])
   createdAt DateTime  @default(now())
