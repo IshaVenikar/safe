@@ -1,18 +1,14 @@
-// components/CardItem.tsx
 "use client";
 
-import { Card, Image } from "@chakra-ui/react";
+import { Card, Flex, Image, Separator, Text } from "@chakra-ui/react";
+import Link from "next/link";
+import { FaPaw } from "react-icons/fa";
+import { Tooltip } from "@/components/ui/tooltip"
+import { IconButton } from "@chakra-ui/react";
 import { useColorMode } from "./ui/color-mode";
+import { Animal } from "@/types";
 
-export default function CardItem({ animal }: {
-  animal: { name: string; details: string; imageUrl: string },
-  idx: number,
-  theme: {
-    buttonBg: string,
-    buttonColor: string,
-    buttonHover: string
-  }
-}) {
+export default function CardItem({ animal }: { animal: Animal }) {
   const { colorMode } = useColorMode();
 
   const cardBg = colorMode === "dark" ? "#C19A6B" : "#fff";
@@ -42,10 +38,43 @@ export default function CardItem({ animal }: {
           borderTopRightRadius: 16,
         }}
       />
-      <Card.Body gap={2}>
-        <Card.Title style={{ color: cardText }}>{animal.name}</Card.Title>
+      <Card.Body gap={2} p={2.5}>
+        <Flex align="center" justify="space-between">
+          <Text fontSize="lg" fontWeight="bold" color={cardText}>
+            {animal.name}
+          </Text>
+
+          <Link href={`/fur-baby/${animal.id}`} passHref>
+            <Tooltip content="View Fur Baby">
+              <IconButton
+                aria-label="View fur baby"
+                variant="ghost"
+                color={cardText}
+                size="sm"
+                style={{
+                  background: colorMode === "dark" ? "#C19A6B" : "#EADDCA",
+                  color: colorMode === "dark" ? "#EADDCA" : "#C19A6B",
+                  transition: "background 0.3s, color 0.3s, border 0.3s"
+                }}
+              >
+                <FaPaw />
+              </IconButton>
+            </Tooltip>
+          </Link>
+        </Flex>
+        <Separator borderColor={cardText} />
+
         <Card.Description style={{ color: cardDesc }}>
-          {animal.details}
+          <Text
+            as="span"
+            whiteSpace="nowrap"
+            overflow="hidden"
+            textOverflow="ellipsis"
+            display="inline-block"
+            maxWidth="100%"
+          >
+            {animal.details}
+          </Text>
         </Card.Description>
       </Card.Body>
     </Card.Root>

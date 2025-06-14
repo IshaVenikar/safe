@@ -8,6 +8,7 @@ import {
   Heading,
   Button,
   VStack,
+  Skeleton,
 } from "@chakra-ui/react";
 import { Spinner } from "@chakra-ui/react"
 import { useColorMode } from "../components/ui/color-mode";
@@ -60,17 +61,6 @@ export default function Home() {
         Up For Adoption
       </Heading>
 
-      {loading ? (
-        <Box textAlign="center" mt={40}>
-          <VStack>
-            <Heading as="h2" size="lg" color={headingColor}>
-              Ruffling through paw files...
-            </Heading>
-            <Spinner size="xl" color={headingColor} />
-          </VStack>
-        </Box>
-      ) : null}
-
       {(!loading && animals.length === 0) && (
         <Box textAlign="center" mt={10}>
           <Heading as="h2" size="lg" color={headingColor}>
@@ -81,11 +71,30 @@ export default function Home() {
 
       <Box w="80%" mx="auto">
         <SimpleGrid columns={{ base: 1, sm: 2, md: 3, lg: 4 }} gap={8}>
-          {animals.map((animal, idx) => (
-            <CardItem key={idx} animal={animal} idx={idx} theme={{ buttonBg, buttonColor, buttonHover }} />
-          ))}
+          {loading
+            ? Array.from({ length: 6 }).map((_, idx) => (
+              <Box
+                key={idx}
+                borderRadius="xl"
+                boxShadow="sm"
+                overflow="hidden"
+                bg="white"
+                maxW="sm"
+              >
+                <Skeleton height="220px" />
+                <Box p={4}>
+                  <Skeleton height="20px" mb={3} />
+                  <Skeleton height="16px" mb={2} />
+                  <Skeleton height="16px" />
+                </Box>
+              </Box>
+            ))
+            : animals.map((animal, idx) => (
+              <CardItem key={idx} animal={animal} />
+            ))}
         </SimpleGrid>
       </Box>
+
       <Button
         position="fixed"
         bottom={8}
@@ -103,7 +112,7 @@ export default function Home() {
         style={{ background: buttonBg, color: buttonColor, borderRadius: 32, fontWeight: 700 }}
         _hover={{ background: buttonHover, color: buttonBg }}
       >
-        Register a baby
+        Post a Fur Baby
       </Button>
     </Box>
   );
