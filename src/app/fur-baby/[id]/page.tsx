@@ -12,19 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-
-type Animal = {
-  id: string;
-  name: string;
-  age: number;
-  details: string;
-  status?: string;
-  contact: number;
-  imageUrl?: string;
-  user?: {
-    email: string;
-  };
-};
+import { Animal } from "@/types";
 
 export default function FurBabyPage() {
   const { id } = useParams();
