@@ -82,7 +82,7 @@ export default function Home() {
       <Box w="80%" mx="auto">
         <SimpleGrid columns={{ base: 1, sm: 2, md: 3, lg: 4 }} gap={8}>
           {animals.map((animal, idx) => (
-            <CardItem key={idx} animal={animal} idx={idx} theme={{ buttonBg, buttonColor, buttonHover }} />
+            <CardItem key={idx} animal={animal} />
           ))}
         </SimpleGrid>
       </Box>
@@ -103,7 +103,7 @@ export default function Home() {
         style={{ background: buttonBg, color: buttonColor, borderRadius: 32, fontWeight: 700 }}
         _hover={{ background: buttonHover, color: buttonBg }}
       >
-        Register a baby
+        Post a Fur Baby
       </Button>
     </Box>
   );

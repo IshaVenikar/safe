@@ -70,8 +70,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     if (!loading) {
       if (!session) {
         router.push('/login');
-      } else {
-        router.push('/');
       }
     }
   }, [session, loading, router]);
