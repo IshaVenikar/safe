@@ -4,8 +4,8 @@
 import { Card, Image } from "@chakra-ui/react";
 import { useColorMode } from "./ui/color-mode";
 
-export default function CardItem({ animal, idx, theme }: {
-  animal: { name: string; description: string; image: string },
+export default function CardItem({ animal }: {
+  animal: { name: string; details: string; imageUrl: string },
   idx: number,
   theme: {
     buttonBg: string,
@@ -32,7 +32,7 @@ export default function CardItem({ animal, idx, theme }: {
       }}
     >
       <Image
-        src={animal.image}
+        src={animal.imageUrl}
         alt={animal.name}
         objectFit="cover"
         w="100%"
@@ -45,7 +45,7 @@ export default function CardItem({ animal, idx, theme }: {
       <Card.Body gap={2}>
         <Card.Title style={{ color: cardText }}>{animal.name}</Card.Title>
         <Card.Description style={{ color: cardDesc }}>
-          {animal.description}
+          {animal.details}
         </Card.Description>
       </Card.Body>
     </Card.Root>

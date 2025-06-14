@@ -1,25 +1,44 @@
 'use client';
 
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
   Box,
   SimpleGrid,
   Heading,
   Button,
+  VStack,
 } from "@chakra-ui/react";
-import { animals } from "../animals";
+import { Spinner } from "@chakra-ui/react"
 import { useColorMode } from "../components/ui/color-mode";
 import CardItem from "@/components/CardItem";
 
 export default function Home() {
-  const { colorMode } = useColorMode();
+  const [animals, setAnimals] = useState([]);
+  const [loading, setLoading] = useState(true);
 
+  const router = useRouter();
+  const { colorMode } = useColorMode();
   const bg = colorMode === "dark" ? "#6B4F27" : "#EADDCA";
   const headingColor = colorMode === "dark" ? "#C19A6B" : "#6B4F27";
   const buttonBg = colorMode === "dark" ? "#6B4F27" : "#C19A6B";
   const buttonColor = colorMode === "dark" ? "#fff" : "#fff";
   const buttonHover = colorMode === "dark" ? "#EADDCA" : "#F5DEB3";
-  const router = useRouter();
+
+  useEffect(() => {
+    const fetchAnimals = async () => {
+      try {
+        const res = await fetch('/api/animals')
+        const data = await res.json()
+        setAnimals(data);
+        setLoading(false);
+      } catch (error) {
+        console.error('Failed to fetch animals:', error)
+      }
+    }
+
+    fetchAnimals()
+  }, [])
 
   return (
     <Box
@@ -40,6 +59,25 @@ export default function Home() {
       >
         Up For Adoption
       </Heading>
+
+      {loading ? (
+        <Box textAlign="center" mt={40}>
+          <VStack>
+            <Heading as="h2" size="lg" color={headingColor}>
+              Ruffling through paw files...
+            </Heading>
+            <Spinner size="xl" color={headingColor} />
+          </VStack>
+        </Box>
+      ) : null}
+
+      {(!loading && animals.length === 0) && (
+        <Box textAlign="center" mt={10}>
+          <Heading as="h2" size="lg" color={headingColor}>
+            No fur babies available at the moment
+          </Heading>
+        </Box>
+      )}
 
       <Box w="80%" mx="auto">
         <SimpleGrid columns={{ base: 1, sm: 2, md: 3, lg: 4 }} gap={8}>
