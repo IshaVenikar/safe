@@ -13,9 +13,16 @@ import {
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { Animal } from "@/types";
+import { useColorMode } from "@/components/ui/color-mode";
 
 export default function FurBabyPage() {
   const { id } = useParams();
+  const { colorMode } = useColorMode();
+  const cardBg = colorMode === "dark" ? "#3B2A13" : "white";
+  const cardShadow = colorMode === "dark" ? "0 2px 12px rgba(0,0,0,0.6)" : "md";
+  const textColor = colorMode === "dark" ? "#EADDCA" : "#6B4F27";
+  const subTextColor = colorMode === "dark" ? "#C19A6B" : "gray.500";
+  const infoBg = colorMode === "dark" ? "#6B4F27" : "gray.50";
   const [animal, setAnimal] = useState<Animal | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -49,7 +56,7 @@ export default function FurBabyPage() {
   }
 
   return (
-    <Box maxW="5xl" mx="auto" mt={10} p={6} boxShadow="md" borderRadius="xl" bg="white">
+    <Box maxW="5xl" mx="auto" mt={10} p={6} boxShadow={cardShadow} borderRadius="xl" bg={cardBg}>
       <Flex direction={["column", null, "row"]} gap={6}>
         <Box flex="1" maxW={["100%", null, "50%"]}>
           {loading ? (
@@ -64,16 +71,17 @@ export default function FurBabyPage() {
                 w="100%"
                 h="100%"
                 maxH="500px"
+                bg={colorMode === "dark" ? "#6B4F27" : "gray.100"}
               />
             )
           )}
         </Box>
-
         <Box
           flex="1"
           display="flex"
           flexDirection="column"
           justifyContent="space-between"
+          fontWeight={110}
         >
           <Stack>
             {loading ? (
@@ -85,19 +93,18 @@ export default function FurBabyPage() {
                 <SkeletonText noOfLines={3} />
               </>
             ) : (
-              <>
+              <Stack spaceY={8}>
                 <Flex justify="space-between" align="center">
-                  <Heading size="lg">{animal?.name}</Heading>
-                  <Text color="gray.500" fontWeight="medium" fontSize="md">
+                  <Heading size="3xl" fontWeight={50} color={textColor}>{animal?.name}</Heading>
+                  <Text color={subTextColor} fontWeight="medium" fontSize="md">
                     Age: {animal?.age}
                   </Text>
                 </Flex>
-                <Text>{animal?.details}</Text>
-              </>
+                <Text color={textColor}>{animal?.details}</Text>
+              </Stack>
             )}
           </Stack>
-
-          <Box mt={6} p={4} bg="gray.50" borderRadius="md">
+          <Box mt={6} p={4} bg={infoBg} borderRadius="md">
             {loading ? (
               <>
                 <Skeleton height="20px" width="100px" mb={2} />
@@ -107,14 +114,14 @@ export default function FurBabyPage() {
               </>
             ) : (
               <>
-                <Text fontWeight="medium">Contact</Text>
-                <Text>{animal?.contact}</Text>
+                <Text fontWeight="medium" color={textColor}>Contact</Text>
+                <Text color={textColor}>{animal?.contact}</Text>
                 {animal?.user && (
                   <>
-                    <Text fontWeight="medium" mt={3}>
+                    <Text fontWeight="medium" mt={3} color={textColor}>
                       Registered by
                     </Text>
-                    <Text>{animal.user.email}</Text>
+                    <Text color={subTextColor}>{animal.user.email}</Text>
                   </>
                 )}
               </>

@@ -5,6 +5,7 @@ import "./globals.css";
 import ChakraProvider from "../context/ChakraProvider";
 import NavBar from "../components/NavBar";
 import { AuthProvider } from "@/context/AuthContext";
+import { PageBackgroundSync } from "@/components/PageBackgroundSync";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,6 +34,7 @@ export default function RootLayout({
       >
         <ChakraProvider>
           <AuthProvider>
+            <PageBackgroundSync />
             <Box minH="100vh" display="flex" flexDirection="column">
               <NavBar />
               <Box flex={1}>{children}</Box>

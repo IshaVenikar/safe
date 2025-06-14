@@ -101,7 +101,7 @@ export default function RegisterAnimalForm() {
       boxShadow="lg"
       color={textColor}
     >
-      <Text fontSize="2xl" fontWeight="bold" mb={4} textAlign="center">
+      <Text fontSize="2xl" fontWeight={110} mb={4} textAlign="center">
         Register a Fur Baby
       </Text>
       <form onSubmit={handleSubmit(onSubmit)}>

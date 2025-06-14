@@ -55,7 +55,7 @@ export default function Home() {
         mb={8}
         textAlign="center"
         fontSize={{ base: "2xl", md: "4xl" }}
-        fontWeight="bold"
+        fontWeight={110}
         color={headingColor}
       >
         Up For Adoption
@@ -107,6 +107,7 @@ export default function Home() {
         px={6}
         py={6}
         fontSize="md"
+        fontWeight={10}
         onClick={() => router.push("/register")}
         aria-label="Register"
         style={{ background: buttonBg, color: buttonColor, borderRadius: 32, fontWeight: 700 }}

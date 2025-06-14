@@ -40,7 +40,7 @@ export default function CardItem({ animal }: { animal: Animal }) {
       />
       <Card.Body gap={2} p={2.5}>
         <Flex align="center" justify="space-between">
-          <Text fontSize="lg" fontWeight="bold" color={cardText}>
+          <Text fontSize="lg" fontWeight={50} color={cardText}>
             {animal.name}
           </Text>
 
