@@ -4,6 +4,14 @@ Helping paws find people.
 
 A cozy space to share and find loving homes for stray and adoptable furry friends.
 
+### Tech Stack
+
+- **Next.js**
+- **TypeScript**
+- **Prisma** (ORM)
+- **Supabase** (Database & Auth)
+- **Chakra UI**
+
 ### Setup
 
 - Install dependencies
@@ -22,13 +30,15 @@ A cozy space to share and find loving homes for stray and adoptable furry friend
 
   - Set the back-end URL, supabase URL and anon key
 
+### Run
+
 - Run the development server:
 
     ```bash
     pnpm dev
     ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- The app will be running on [http://localhost:3000](http://localhost:3000)
 
 ### Update schema
 
