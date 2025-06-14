@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
   Box,
@@ -7,19 +8,33 @@ import {
   Heading,
   Button,
 } from "@chakra-ui/react";
-import { animals } from "../animals";
 import { useColorMode } from "../components/ui/color-mode";
 import CardItem from "@/components/CardItem";
 
 export default function Home() {
+  const [animals, setAnimals] = useState([]);
+  
+  const router = useRouter();
   const { colorMode } = useColorMode();
-
   const bg = colorMode === "dark" ? "#6B4F27" : "#EADDCA";
   const headingColor = colorMode === "dark" ? "#C19A6B" : "#6B4F27";
   const buttonBg = colorMode === "dark" ? "#6B4F27" : "#C19A6B";
   const buttonColor = colorMode === "dark" ? "#fff" : "#fff";
   const buttonHover = colorMode === "dark" ? "#EADDCA" : "#F5DEB3";
-  const router = useRouter();
+
+  useEffect(() => {
+    const fetchAnimals = async () => {
+      try {
+        const res = await fetch('/api/animals')
+        const data = await res.json()
+        setAnimals(data);
+      } catch (error) {
+        console.error('Failed to fetch animals:', error)
+      }
+    }
+
+    fetchAnimals()
+  }, [])
 
   return (
     <Box
