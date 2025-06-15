@@ -56,7 +56,7 @@ export default function FurBabyPage() {
   }
 
   return (
-    <Box maxW="5xl" mx="auto" mt={10} p={6} boxShadow={cardShadow} borderRadius="xl" bg={cardBg}>
+    <Box maxW="5xl" mx="auto" mt={6} p={6} boxShadow={cardShadow} borderRadius="xl" bg={cardBg}>
       <Flex direction={["column", null, "row"]} gap={6}>
         <Box flex="1" maxW={["100%", null, "50%"]}>
           {loading ? (
@@ -114,14 +114,15 @@ export default function FurBabyPage() {
               </>
             ) : (
               <>
-                <Text fontWeight="medium" color={textColor}>Contact</Text>
-                <Text color={textColor}>{animal?.contact}</Text>
+                <Text fontWeight={100} color={textColor} mb={2}>Want to adopt {animal?.name}?</Text>
+                <Text color={textColor} fontSize={13}>Contact</Text>
+                <Text color={textColor} fontSize={13}>{animal?.contact}</Text>
                 {animal?.user && (
                   <>
-                    <Text fontWeight="medium" mt={3} color={textColor}>
+                    <Text mt={3} color={textColor} fontSize={13}>
                       Registered by
                     </Text>
-                    <Text color={subTextColor}>{animal.user.email}</Text>
+                    <Text color={subTextColor} fontSize={13}>{animal.user.email}</Text>
                   </>
                 )}
               </>

@@ -44,7 +44,7 @@ export default function CardItem({ animal }: { animal: Animal }) {
             {animal.name}
           </Text>
 
-          <Link href={`/fur-baby/${animal.id}`} passHref>
+          <Link href={`/info/${animal.id}`} passHref>
             <Tooltip content="View Fur Baby">
               <IconButton
                 aria-label="View fur baby"
