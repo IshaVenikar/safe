@@ -8,9 +8,11 @@ import {
   Heading,
   Button,
   Skeleton,
+  Text,
 } from "@chakra-ui/react";
 import { useColorMode } from "../components/ui/color-mode";
 import CardItem from "@/components/CardItem";
+import { APP_BANNER_SUBTEXT, APP_BANNER_TEXT } from "@/constants";
 
 export default function Home() {
   const [animals, setAnimals] = useState([]);
@@ -40,79 +42,106 @@ export default function Home() {
   }, [])
 
   return (
-    <Box
-      py={10}
-      px={4}
-      minH="100vh"
-      bg={bg}
-      w="100%"
-      mx="auto"
-      position="relative"
-    >
-      <Heading
-        mb={8}
-        textAlign="center"
-        fontSize={{ base: "2xl", md: "4xl" }}
-        fontWeight={110}
-        color={headingColor}
+    <>
+      <Box
+        w="100%"
+        bg={colorMode === "dark" ? "#EADDCA" : "#C19A6B"}
+        py={10}
+        mb={10}
       >
-        Up For Adoption
-      </Heading>
-
-      {(!loading && animals.length === 0) && (
-        <Box textAlign="center" mt={10}>
-          <Heading as="h2" size="lg" color={headingColor}>
-            No fur babies available at the moment
-          </Heading>
+        <Box
+          w={{ base: "95%", md: "90%" }}
+          mx="auto"
+          p={{ base: 4, md: 8 }}
+          borderRadius="md"
+          bg={colorMode === "dark" ? "#C19A6B" : "#fff7ef"}
+          color={colorMode === "dark" ? "#fff" : "#6B4F27"}
+          fontSize={{ base: "sm", md: "md" }}
+          fontWeight={200}
+          textAlign="justify"
+        >
+          <Text>Welcome to <b>safe</b>,</Text>
+          <Text fontWeight="bold" fontSize="md" color="#6B4F27">a safe corner for strays, stories, and second chances.</Text>
+          <br></br>
+          <Text fontSize="md">{APP_BANNER_TEXT}</Text>
+          <br></br>
+          <Text fontSize="sm">{APP_BANNER_SUBTEXT}</Text> 
         </Box>
-      )}
-
-      <Box w="80%" mx="auto">
-        <SimpleGrid columns={{ base: 1, sm: 2, md: 3, lg: 4 }} gap={8}>
-          {loading
-            ? Array.from({ length: 6 }).map((_, idx) => (
-              <Box
-                key={idx}
-                borderRadius="xl"
-                boxShadow="sm"
-                overflow="hidden"
-                bg="white"
-                maxW="sm"
-              >
-                <Skeleton height="220px" />
-                <Box p={4}>
-                  <Skeleton height="20px" mb={3} />
-                  <Skeleton height="16px" mb={2} />
-                  <Skeleton height="16px" />
-                </Box>
-              </Box>
-            ))
-            : animals.map((animal, idx) => (
-              <CardItem key={idx} animal={animal} />
-            ))}
-        </SimpleGrid>
       </Box>
-
-      <Button
-        position="fixed"
-        bottom={8}
-        right={8}
-        zIndex={1000}
-        colorScheme="teal"
-        borderRadius="full"
-        boxShadow="0 4px 16px #0003"
-        size="lg"
-        px={6}
-        py={6}
-        fontSize="md"
-        fontWeight={10}
-        onClick={() => router.push("/register")}
-        aria-label="Register"
-        style={{ background: buttonBg, color: buttonColor, borderRadius: 32, fontWeight: 700 }}
-        _hover={{ background: buttonHover, color: buttonBg }}
+      <Box
+        py={10}
+        px={4}
+        minH="100vh"
+        bg={bg}
+        w="100%"
+        mx="auto"
+        position="relative"
       >
-        Post a Fur Baby
-      </Button>
-    </Box>
+        <Heading
+          mb={8}
+          textAlign="center"
+          fontSize={{ base: "2xl", md: "4xl" }}
+          fontWeight={110}
+          color={headingColor}
+        >
+          Up For Adoption
+        </Heading>
+
+        {(!loading && animals.length === 0) && (
+          <Box textAlign="center" mt={10}>
+            <Heading as="h2" size="lg" color={headingColor}>
+              No fur babies available at the moment
+            </Heading>
+          </Box>
+        )}
+
+        <Box w="80%" mx="auto">
+          <SimpleGrid columns={{ base: 1, sm: 2, md: 3, lg: 4 }} gap={8}>
+            {loading
+              ? Array.from({ length: 6 }).map((_, idx) => (
+                <Box
+                  key={idx}
+                  borderRadius="xl"
+                  boxShadow="sm"
+                  overflow="hidden"
+                  bg="white"
+                  maxW="sm"
+                >
+                  <Skeleton height="220px" />
+                  <Box p={4}>
+                    <Skeleton height="20px" mb={3} />
+                    <Skeleton height="16px" mb={2} />
+                    <Skeleton height="16px" />
+                  </Box>
+                </Box>
+              ))
+              : animals.map((animal, idx) => (
+                <CardItem key={idx} animal={animal} />
+              ))}
+          </SimpleGrid>
+        </Box>
+
+        <Button
+          position="fixed"
+          bottom={8}
+          right={8}
+          zIndex={1000}
+          colorScheme="teal"
+          borderRadius="full"
+          boxShadow="0 4px 16px #0003"
+          size="lg"
+          px={6}
+          py={6}
+          fontSize="md"
+          fontWeight={10}
+          onClick={() => router.push("/register")}
+          aria-label="Register"
+          style={{ background: buttonBg, color: buttonColor, borderRadius: 32, fontWeight: 700 }}
+          _hover={{ background: buttonHover, color: buttonBg }}
+        >
+          Post a Fur Baby
+        </Button>
+      </Box>
+    </>
   );
 }
