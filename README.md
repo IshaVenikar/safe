@@ -10,7 +10,7 @@ A cozy space to share and find loving homes for stray and adoptable furry friend
 - **TypeScript**
 - **Prisma** (ORM)
 - **Supabase** (Database & Auth)
-- **Chakra UI**
+- **Chakra UI** and **Tailwind CSS**
 
 ### Setup
 
