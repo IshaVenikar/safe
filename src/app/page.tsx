@@ -10,21 +10,21 @@ import {
   Skeleton,
   Text,
 } from "@chakra-ui/react";
-import { useColorMode } from "../components/ui/color-mode";
+// import { useColorMode } from "../components/ui/color-mode";
 import CardItem from "@/components/CardItem";
-import { APP_BANNER_SUBTEXT, APP_BANNER_TEXT } from "@/constants";
+import Banner from "@/components/Banner";
 
 export default function Home() {
   const [animals, setAnimals] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const router = useRouter();
-  const { colorMode } = useColorMode();
-  const bg = colorMode === "dark" ? "#6B4F27" : "#EADDCA";
-  const headingColor = colorMode === "dark" ? "#C19A6B" : "#6B4F27";
-  const buttonBg = colorMode === "dark" ? "#6B4F27" : "#C19A6B";
-  const buttonColor = colorMode === "dark" ? "#fff" : "#fff";
-  const buttonHover = colorMode === "dark" ? "#EADDCA" : "#F5DEB3";
+  // const { colorMode } = useColorMode();
+  const bg = "#EADDCA";
+  const headingColor = "#6B4F27";
+  const buttonBg = "#C19A6B";
+  const buttonColor = "#fff";
+  const buttonHover = "#F5DEB3";
 
   useEffect(() => {
     const fetchAnimals = async () => {
@@ -44,26 +44,7 @@ export default function Home() {
   return (
     <>
       <Box
-        w={{ base: "95%", md: "90%" }}
-        mx="auto"
-        p={{ base: 4, md: 8 }}
-        mt={4}
-        borderRadius="md"
-        bg={colorMode === "dark" ? "#C19A6B" : "#fff7ef"}
-        color={colorMode === "dark" ? "#fff" : "#6B4F27"}
-        fontSize={{ base: "sm", md: "md" }}
-        fontWeight={200}
-        textAlign="justify"
-      >
-        <Text fontSize="md">Welcome to <b>safe</b>,</Text>
-        <Text fontWeight="bold" fontSize="md" color="#6B4F27">a safe corner for strays, stories, and second chances.</Text>
-        <br></br>
-        <Text fontSize="md">{APP_BANNER_TEXT}</Text>
-        <br></br>
-        <Text fontSize="sm">{APP_BANNER_SUBTEXT}</Text>
-      </Box>
-      <Box
-        py={10}
+        py={20}
         px={4}
         minH="100vh"
         bg={bg}
@@ -71,8 +52,10 @@ export default function Home() {
         mx="auto"
         position="relative"
       >
+        <Banner />
         <Heading
-          mb={8}
+          mt={100}
+          mb={20}
           textAlign="center"
           fontSize={{ base: "2xl", md: "4xl" }}
           fontWeight={110}

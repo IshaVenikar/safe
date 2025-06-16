@@ -5,15 +5,15 @@ import Link from "next/link";
 import { FaPaw } from "react-icons/fa";
 import { Tooltip } from "@/components/ui/tooltip"
 import { IconButton } from "@chakra-ui/react";
-import { useColorMode } from "./ui/color-mode";
+// import { useColorMode } from "./ui/color-mode";
 import { Animal } from "@/types";
 
 export default function CardItem({ animal }: { animal: Animal }) {
-  const { colorMode } = useColorMode();
+  // const { colorMode } = useColorMode();
 
-  const cardBg = colorMode === "dark" ? "#C19A6B" : "#fff";
-  const cardText = colorMode === "dark" ? "#fff" : "#6B4F27";
-  const cardDesc = colorMode === "dark" ? "#EADDCA" : "#C19A6B";
+  const cardBg = "#fff";
+  const cardText = "#6B4F27";
+  const cardDesc = "#C19A6B";
 
   return (
     <Card.Root
@@ -52,8 +52,8 @@ export default function CardItem({ animal }: { animal: Animal }) {
                 color={cardText}
                 size="sm"
                 style={{
-                  background: colorMode === "dark" ? "#C19A6B" : "#EADDCA",
-                  color: colorMode === "dark" ? "#EADDCA" : "#C19A6B",
+                  background: "#EADDCA",
+                  color: "#C19A6B",
                   transition: "background 0.3s, color 0.3s, border 0.3s"
                 }}
               >

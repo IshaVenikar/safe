@@ -21,20 +21,23 @@ import {
 import { User } from '@/types';
 import { FaUserCircle } from 'react-icons/fa';
 import { useRouter } from 'next/navigation';
-import { useColorMode } from '@/components/ui/color-mode';
+// import { useColorMode } from '@/components/ui/color-mode';
 
 export default function ProfilePage() {
   const [userDetails, setUserDetails] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const { user, loading: authLoading } = useAuth();
   const router = useRouter();
-  const { colorMode } = useColorMode();
+//   const { colorMode } = useColorMode();
 
-  const cardBg = colorMode === 'dark' ? '#3B2A13' : 'white';
-  const cardShadow = colorMode === 'dark' ? '0 2px 12px rgba(0,0,0,0.6)' : 'lg';
-  const textColor = colorMode === 'dark' ? '#EADDCA' : '#6B4F27';
-  const subTextColor = colorMode === 'dark' ? '#C19A6B' : 'gray.600';
-  const bg = colorMode === 'dark' ? '#6B4F27' : '#EADDCA';
+  const cardBg = 'white';
+  const cardShadow = 'lg';
+  const textColor = '#6B4F27';
+  const subTextColor = 'gray.600';
+  const bg = '#EADDCA';
+  const buttonBg = '#C19A6B';
+  const buttonColor = '#fff';
+  const buttonHover = '#F5DEB3';
 
   useEffect(() => {
     if (!user) return;
@@ -52,7 +55,7 @@ export default function ProfilePage() {
 
   if (authLoading || loading) {
     return (
-      <Box maxW="7xl" mx="auto" mt={10} px={6} bg={bg}>
+      <Box maxW="70%" mx="auto" mt={10} px={6} bg={bg}>
         <Grid templateColumns={{ base: '1fr', md: '300px 1fr' }} gap={10} mb={5}>
           <Box p={6} borderRadius="2xl" boxShadow={cardShadow} bg={cardBg} height="300px">
             <Flex direction="column" align="center" textAlign="center">
@@ -112,7 +115,7 @@ export default function ProfilePage() {
   }
 
   return (
-    <Box maxW="7xl" mx="auto" mt={10} px={6} bg={bg}>
+    <Box maxW="70%" mx="auto" mt={10} px={6} bg={bg}>
       <Grid templateColumns={{ base: '1fr', md: '300px 1fr' }} gap={10} mb={5}>
         <Box p={6} borderRadius="2xl" boxShadow={cardShadow} bg={cardBg} minH="320px" height="300px">
           <Flex direction="column" align="center" textAlign="center">
@@ -131,8 +134,15 @@ export default function ProfilePage() {
         {/* Animals List Section */}
         <Box>
           <Flex justify="space-between" align="center" mb={4}>
-            <Heading size="md">🐾 Your Fur Babies</Heading>
-            <Button colorScheme="teal" size="sm" onClick={() => router.push("/register")}>Post a New Fur Baby</Button>
+            <Heading size="md" color={textColor}>🐾 Your Fur Babies</Heading>
+            <Button
+              size="sm"
+              onClick={() => router.push("/register")}
+              style={{ background: buttonBg, color: buttonColor, fontWeight: 700 }}
+              _hover={{ background: buttonHover, color: buttonBg }}
+            >
+              Post a New Fur Baby
+            </Button>
           </Flex>
 
           <Stack>
@@ -148,6 +158,7 @@ export default function ProfilePage() {
                   gap={6}
                   boxShadow="sm"
                   _hover={{ boxShadow: 'md' }}
+                  bg={cardBg}
                 >
                   {animal.imageUrl && (
                     <Image
@@ -159,7 +170,7 @@ export default function ProfilePage() {
                     />
                   )}
                   <Box>
-                    <Text fontSize="xl" fontWeight="bold" mb={1}>{animal.name}</Text>
+                    <Text fontSize="xl" fontWeight="bold" mb={1} color={textColor}>{animal.name}</Text>
                     <HStack mb={1}>
                       <Badge colorScheme="purple">Age: {animal.age}</Badge>
                       <Badge colorScheme={animal.status === 'Adopted' ? 'green' : 'orange'}>
@@ -171,8 +182,14 @@ export default function ProfilePage() {
               ))
             ) : (
               <Box textAlign="center" mt={10}>
-                <Text fontSize="lg" color="gray.500">No fur babies posted yet.</Text>
-                <Button mt={4} colorScheme="teal">Post Your First Friend</Button>
+                <Text fontSize="lg" color={subTextColor}>No fur babies posted yet.</Text>
+                <Button
+                  mt={4}
+                  style={{ background: buttonBg, color: buttonColor, borderRadius: 32, fontWeight: 700 }}
+                  _hover={{ background: buttonHover, color: buttonBg }}
+                >
+                  Post Your First Friend
+                </Button>
               </Box>
             )}
           </Stack>
