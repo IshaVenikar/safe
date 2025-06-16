@@ -44,29 +44,23 @@ export default function Home() {
   return (
     <>
       <Box
-        w="100%"
-        bg={colorMode === "dark" ? "#EADDCA" : "#C19A6B"}
-        py={10}
-        mb={10}
+        w={{ base: "95%", md: "90%" }}
+        mx="auto"
+        p={{ base: 4, md: 8 }}
+        mt={4}
+        borderRadius="md"
+        bg={colorMode === "dark" ? "#C19A6B" : "#fff7ef"}
+        color={colorMode === "dark" ? "#fff" : "#6B4F27"}
+        fontSize={{ base: "sm", md: "md" }}
+        fontWeight={200}
+        textAlign="justify"
       >
-        <Box
-          w={{ base: "95%", md: "90%" }}
-          mx="auto"
-          p={{ base: 4, md: 8 }}
-          borderRadius="md"
-          bg={colorMode === "dark" ? "#C19A6B" : "#fff7ef"}
-          color={colorMode === "dark" ? "#fff" : "#6B4F27"}
-          fontSize={{ base: "sm", md: "md" }}
-          fontWeight={200}
-          textAlign="justify"
-        >
-          <Text>Welcome to <b>safe</b>,</Text>
-          <Text fontWeight="bold" fontSize="md" color="#6B4F27">a safe corner for strays, stories, and second chances.</Text>
-          <br></br>
-          <Text fontSize="md">{APP_BANNER_TEXT}</Text>
-          <br></br>
-          <Text fontSize="sm">{APP_BANNER_SUBTEXT}</Text> 
-        </Box>
+        <Text fontSize="md">Welcome to <b>safe</b>,</Text>
+        <Text fontWeight="bold" fontSize="md" color="#6B4F27">a safe corner for strays, stories, and second chances.</Text>
+        <br></br>
+        <Text fontSize="md">{APP_BANNER_TEXT}</Text>
+        <br></br>
+        <Text fontSize="sm">{APP_BANNER_SUBTEXT}</Text>
       </Box>
       <Box
         py={10}
