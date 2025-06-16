@@ -11,7 +11,7 @@ import {
 } from '@chakra-ui/react';
 import { FormLabel, FormControl } from "@chakra-ui/form-control";
 import { Toaster, toaster } from '@/components/ui/toaster';
-import { useColorMode } from '@/components/ui/color-mode';
+// import { useColorMode } from '@/components/ui/color-mode';
 import { useAuth } from '@/context/AuthContext';
 import { createClient } from '@/lib/supabase-auth/client';
 
@@ -30,14 +30,14 @@ export default function RegisterAnimalForm() {
     reset,
     formState: { isSubmitting },
   } = useForm<FormData>();
-  const { colorMode } = useColorMode();
+  // const { colorMode } = useColorMode();
   const { user } = useAuth();
   const supabase = createClient();
 
-  const bg = colorMode === 'dark' ? '#F5DEB3' : '#EADDCA';
-  const textColor = colorMode === 'dark' ? '#C19A6B' : '#6B4F27';
-  const buttonBg = colorMode === 'dark' ? '#6B4F27' : '#C19A6B';
-  const buttonHover = colorMode === 'dark' ? '#EADDCA' : '#F5DEB3';
+  const bg = '#EADDCA';
+  const textColor = '#6B4F27';
+  const buttonBg = '#C19A6B';
+  const buttonHover = '#F5DEB3';
 
   const onSubmit = async (data: FormData) => {
     try {

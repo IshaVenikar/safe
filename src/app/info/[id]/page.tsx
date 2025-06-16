@@ -13,16 +13,16 @@ import {
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { Animal } from "@/types";
-import { useColorMode } from "@/components/ui/color-mode";
+// import { useColorMode } from "@/components/ui/color-mode";
 
 export default function FurBabyPage() {
   const { id } = useParams();
-  const { colorMode } = useColorMode();
-  const cardBg = colorMode === "dark" ? "#3B2A13" : "white";
-  const cardShadow = colorMode === "dark" ? "0 2px 12px rgba(0,0,0,0.6)" : "md";
-  const textColor = colorMode === "dark" ? "#EADDCA" : "#6B4F27";
-  const subTextColor = colorMode === "dark" ? "#C19A6B" : "gray.500";
-  const infoBg = colorMode === "dark" ? "#6B4F27" : "gray.50";
+  // const { colorMode } = useColorMode();
+  const cardBg = "white";
+  const cardShadow = "md";
+  const textColor = "#6B4F27";
+  const subTextColor = "gray.500";
+  const infoBg = "gray.50";
   const [animal, setAnimal] = useState<Animal | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -71,7 +71,7 @@ export default function FurBabyPage() {
                 w="100%"
                 h="100%"
                 maxH="500px"
-                bg={colorMode === "dark" ? "#6B4F27" : "gray.100"}
+                bg="gray.100"
               />
             )
           )}

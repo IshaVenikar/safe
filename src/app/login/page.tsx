@@ -9,13 +9,13 @@ import {
   Stack,
 } from "@chakra-ui/react"
 import { FormLabel, FormControl } from "@chakra-ui/form-control";
-import { useColorMode } from "@/components/ui/color-mode";
+// import { useColorMode } from "@/components/ui/color-mode";
 
 export default function LoginPage() {
-  const { colorMode } = useColorMode();
+  // const { colorMode } = useColorMode();
 
-  const bg = colorMode === 'dark' ? '#F5DEB3' : '#EADDCA';
-  const textColor = colorMode === 'dark' ? '#C19A6B' : '#6B4F27';
+  const bg = '#EADDCA';
+  const textColor = '#6B4F27';
 
   return (
     <Box
