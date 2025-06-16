@@ -5,7 +5,8 @@ import { useColorMode } from "@/components/ui/color-mode"
 import { LuMoon, LuSun } from "react-icons/lu"
 
 export default function ThemeToggleButton () {
-  const { toggleColorMode, colorMode } = useColorMode()
+  const { toggleColorMode, colorMode } = useColorMode();
+
   return (
     <ClientOnly fallback={<Skeleton boxSize="8" />}>
       <IconButton
