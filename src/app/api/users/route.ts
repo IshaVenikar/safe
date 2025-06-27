@@ -44,3 +44,26 @@ export async function GET(req: Request) {
     return NextResponse.json({ error: 'Failed to fetch user' }, { status: 500 })
   }
 }
+
+export async function PATCH(req: Request) {
+  try {
+    const { searchParams } = new URL(req.url!)
+    const id = searchParams.get('id')
+    if (!id) {
+      return NextResponse.json({ error: 'User id is required' }, { status: 400 })
+    }
+    const { location } = await req.json()
+
+    const user = await prismaClient.user.update({
+      where: { id },
+      data: { location },
+    })
+    if (!user) {
+      return NextResponse.json({ error: 'User not found' }, { status: 404 })
+    }
+    return NextResponse.json(user)
+  } catch (error) {
+    console.error('Error updating user:', error)
+    return NextResponse.json({ error: 'Failed to update user' }, { status: 500 })
+  }
+}
