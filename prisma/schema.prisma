@@ -20,6 +20,7 @@ model User {
   type          UserType? // "single" or "organization"
   role          UserRole? // "adopter" or "registrar"
   animals       Animal[] // 1-to-many relation
+  location      Json? // Contains city, state, coordinates
   createdAt     DateTime @default(now())
 }
 
