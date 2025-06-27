@@ -44,8 +44,8 @@ export default function Home() {
   return (
     <>
       <Box
-        py={20}
-        px={4}
+        // py={20}
+        // px={4}
         minH="100vh"
         bg={bg}
         w="100%"
@@ -54,7 +54,7 @@ export default function Home() {
       >
         <Banner />
         <Heading
-          mt={100}
+          mt={10}
           mb={20}
           textAlign="center"
           fontSize={{ base: "2xl", md: "4xl" }}
@@ -72,7 +72,7 @@ export default function Home() {
           </Box>
         )}
 
-        <Box w="80%" mx="auto">
+        <Box w="80%" mx="auto" mb={20} mt={10}>
           <SimpleGrid columns={{ base: 1, sm: 2, md: 3, lg: 4 }} gap={8}>
             {loading
               ? Array.from({ length: 6 }).map((_, idx) => (
