@@ -42,8 +42,7 @@ export default function Banner() {
 
   return (
     <Box
-      w={{ base: "95%", md: "90%" }}
-      mx="auto"
+      w={{ base: "100%", md: "100%" }}
       p={6}
       mb={5}
       borderRadius="md"

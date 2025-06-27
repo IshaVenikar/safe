@@ -11,9 +11,11 @@ import {
 } from '@chakra-ui/react';
 import { FormLabel, FormControl } from "@chakra-ui/form-control";
 import { Toaster, toaster } from '@/components/ui/toaster';
-// import { useColorMode } from '@/components/ui/color-mode';
 import { useAuth } from '@/context/AuthContext';
 import { createClient } from '@/lib/supabase-auth/client';
+import { useGetLocation } from '@/hooks/useGetLocation';
+
+const textColor = '#6B4F27';
 
 type FormData = {
   name: string;
@@ -24,25 +26,31 @@ type FormData = {
 };
 
 export default function RegisterAnimalForm() {
+  const { user } = useAuth();
+  const supabase = createClient();
+
   const {
     register,
     handleSubmit,
     reset,
     formState: { isSubmitting },
   } = useForm<FormData>();
-  // const { colorMode } = useColorMode();
-  const { user } = useAuth();
-  const supabase = createClient();
 
-  const bg = '#EADDCA';
-  const textColor = '#6B4F27';
+  const {
+    location,
+    cityState,
+    locating,
+    locationError,
+    isLoaded,
+    handleDetectLocation
+  } = useGetLocation();
+
   const buttonBg = '#C19A6B';
   const buttonHover = '#F5DEB3';
 
   const onSubmit = async (data: FormData) => {
     try {
       const imageFile = data.imageUrl[0];
-
       const fileExt = imageFile.name.split('.').pop();
       const filePath = `furry-${Date.now()}.${fileExt}`;
 
@@ -97,7 +105,7 @@ export default function RegisterAnimalForm() {
       mt={8}
       p={6}
       borderRadius="lg"
-      bg={bg}
+      bg="#EADDCA"
       boxShadow="lg"
       color={textColor}
     >
@@ -146,6 +154,43 @@ export default function RegisterAnimalForm() {
               {...register('imageUrl', { required: true })}
             />
           </FormControl>
+
+          <FormControl>
+            <FormLabel color={textColor}>Location</FormLabel>
+            <Button
+              onClick={handleDetectLocation}
+              loading={locating}
+              colorScheme="teal"
+              size="sm"
+            >
+              📍 Auto-detect Location
+            </Button>
+
+            {cityState && (
+              <Text fontSize="sm" mt={2}>
+                Detected Location: {cityState.city}, {cityState.state}
+              </Text>
+            )}
+
+            {locationError && (
+              <Text fontSize="sm" mt={2} color="red.500">
+                {locationError}
+              </Text>
+            )}
+          </FormControl>
+          {location && isLoaded && (
+            <Box mt={2} h="25px" borderRadius="md" overflow="hidden">
+              Open with{' '}
+              <a
+                href={`https://www.google.com/maps?q=${location.lat},${location.lng}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ color: 'blue', textDecoration: 'underline' }}
+              >
+                Google Maps
+              </a>
+            </Box>
+          )}
 
           <Button
             type="submit"
