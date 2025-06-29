@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { useJsApiLoader } from '@react-google-maps/api';
+import { useAuth } from '@/context/AuthContext';
 
 type Location = { lat: number; lng: number } | null;
 type CityState = { city: string; state: string } | null;
@@ -10,6 +11,8 @@ export const useGetLocation = () => {
   const [locationError, setLocationError] = useState<string | null>(null);
   const [location, setLocation] = useState<Location>(null);
   const [cityState, setCityState] = useState<CityState>(null);
+
+  const { user } = useAuth();
 
   // Only needed if you're showing a Google Map in the UI
   const { isLoaded } = useJsApiLoader({
@@ -33,6 +36,17 @@ export const useGetLocation = () => {
       const city = address.city || address.town || address.village || '';
       const state = address.state || '';
 
+      if (!user) {
+        return;
+      }
+      // Patch user location to API
+      try {
+        await axios.patch(`/api/users?id=${user.id}`, {
+          location: { lat, lng, city, state }
+        });
+      } catch (err) {
+        console.error('Failed to update user location:', err);
+      }
       setCityState({ city, state });
     } catch (err) {
       console.error('Reverse geocoding failed:', err);
