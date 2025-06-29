@@ -7,6 +7,7 @@ export async function GET(_: Request, { params }: { params: { id: string } }) {
       user: {
         select: {
           email: true,
+          location: true
         },
       },
     } });

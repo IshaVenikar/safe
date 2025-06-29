@@ -9,14 +9,17 @@ import {
   Flex,
   Skeleton,
   SkeletonText,
+  IconButton,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { Animal } from "@/types";
+import { FaMapMarkerAlt } from "react-icons/fa";
 // import { useColorMode } from "@/components/ui/color-mode";
 
 export default function FurBabyPage() {
   const { id } = useParams();
+
   // const { colorMode } = useColorMode();
   const cardBg = "white";
   const cardShadow = "md";
@@ -115,6 +118,32 @@ export default function FurBabyPage() {
             ) : (
               <>
                 <Text fontWeight={100} color={textColor} mb={2}>Want to adopt {animal?.name}?</Text>
+                <Text color={textColor} fontSize={13}>Location</Text>
+                <Stack>
+                  <Flex justify="space-between" align="center" gap={4}>
+                    <Text color={textColor} fontSize={13}>{animal?.user?.location?.city},{' '}{animal?.user?.location?.state}</Text>
+                    <IconButton
+                      aria-label="View fur baby"
+                      variant="ghost"
+                      color={textColor}
+                      onClick={() => {
+                        const lat = animal?.user?.location?.lat;
+                        const lng = animal?.user?.location?.lng;
+                        if (lat && lng) {
+                          window.open(`https://www.google.com/maps?q=${lat},${lng}`, '_blank');
+                        }
+                      }}
+                      size="sm"
+                      style={{
+                        background: "#EADDCA",
+                        color: "#C19A6B",
+                        transition: "background 0.3s, color 0.3s, border 0.3s",
+                      }}
+                    >
+                      <FaMapMarkerAlt />
+                    </IconButton>
+                  </Flex>
+                </Stack>
                 <Text color={textColor} fontSize={13}>Contact</Text>
                 <Text color={textColor} fontSize={13}>{animal?.contact}</Text>
                 {animal?.user && (

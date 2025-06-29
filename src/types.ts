@@ -4,8 +4,16 @@ export type User = {
   type?: UserType;
   role?: UserRole;
   animals: Animal[];
+  location?: Location;
   createdAt: string;
 };
+
+type Location = {
+  city: string;
+  state: string;
+  lng: string;
+  lat: string;
+}
 
 export type Animal = {
   id: string;
