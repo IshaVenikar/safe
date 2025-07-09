@@ -4,10 +4,18 @@ import { prismaClient } from '@/lib/prisma';
 // GET /api/animals
 export async function GET() {
   try {
-    const animals = await prismaClient.animal.findMany();
+    const animals = await prismaClient.animal.findMany({
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
+
     return NextResponse.json(animals);
   } catch (err) {
-    return NextResponse.json({ error: 'Failed to fetch fur babies', details: String(err) }, { status: 500 });
+    return NextResponse.json(
+      { error: 'Failed to fetch fur babies', details: String(err) },
+      { status: 500 }
+    );
   }
 }
 

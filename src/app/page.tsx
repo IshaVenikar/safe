@@ -44,8 +44,6 @@ export default function Home() {
   return (
     <>
       <Box
-        // py={20}
-        // px={4}
         minH="100vh"
         bg={bg}
         w="100%"
@@ -92,28 +90,37 @@ export default function Home() {
                   </Box>
                 </Box>
               ))
-              : animals.map((animal, idx) => (
+              : animals.slice(0, 4).map((animal, idx) => (
                 <CardItem key={idx} animal={animal} />
               ))}
           </SimpleGrid>
+        <Box textAlign="center">
+          <Button
+            boxShadow="0 4px 16px #0003"
+            rounded="l3"
+            mt={5}
+            mb={5}
+            fontWeight={10}
+            onClick={() => router.push("/list")}
+            aria-label="List"
+            style={{ background: buttonBg, color: buttonColor }}
+            _hover={{ background: buttonHover, color: buttonBg }}
+          >
+            View More
+          </Button>
         </Box>
-
+        </Box>
         <Button
           position="fixed"
           bottom={8}
           right={8}
           zIndex={1000}
-          colorScheme="teal"
           borderRadius="full"
           boxShadow="0 4px 16px #0003"
-          size="lg"
-          px={6}
-          py={6}
-          fontSize="md"
           fontWeight={10}
           onClick={() => router.push("/register")}
           aria-label="Register"
-          style={{ background: buttonBg, color: buttonColor, borderRadius: 32, fontWeight: 700 }}
+          style={{ background: buttonBg, color: buttonColor }}
           _hover={{ background: buttonHover, color: buttonBg }}
         >
           Post a Fur Baby
