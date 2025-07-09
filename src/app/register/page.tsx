@@ -8,7 +8,9 @@ import {
   Textarea,
   VStack,
   Text,
+  FileUpload,
 } from '@chakra-ui/react';
+import { HiUpload } from "react-icons/hi"
 import { FormLabel, FormControl } from "@chakra-ui/form-control";
 import { Toaster, toaster } from '@/components/ui/toaster';
 import { useAuth } from '@/context/AuthContext';
@@ -26,6 +28,15 @@ type FormData = {
 };
 
 export default function RegisterAnimalForm() {
+  const handleFileChange = (details: { acceptedFiles: File[]; rejectedFiles: any[] }) => {
+    const file = details.acceptedFiles[0];
+    if (file) {
+      const dataTransfer = new DataTransfer();
+      dataTransfer.items.add(file);
+      setValue("imageUrl", dataTransfer.files, { shouldValidate: true });
+    }
+  };
+
   const { user } = useAuth();
   const supabase = createClient();
 
@@ -34,6 +45,7 @@ export default function RegisterAnimalForm() {
     handleSubmit,
     reset,
     formState: { isSubmitting },
+    setValue
   } = useForm<FormData>();
 
   const {
@@ -151,14 +163,35 @@ export default function RegisterAnimalForm() {
           </FormControl>
 
           <FormControl isRequired>
-            <FormLabel color={textColor}>Contact Number</FormLabel>
-            <Input
-              placeholder="How do we contact you?"
-              type="number"
-              {...register('contact', { valueAsNumber: true })}
-            />
+            <FormLabel color={textColor} fontWeight={10} mb={4}>
+              Upload a cute picture of the baby
+            </FormLabel>
+
+            <FileUpload.Root
+              onFileChange={handleFileChange}
+              accept={["image/png", "image/jpeg", "image/jpg"]}
+            >
+              <FileUpload.HiddenInput />
+              <FileUpload.Trigger asChild>
+                <Button
+                  size="sm"
+                  color={textColor}
+                  fontWeight={10}
+                  boxShadow="0 4px 16px #0003"
+                  _hover={{
+                    bgColor: "#F5DEB3",
+                  }}
+                >
+                  <HiUpload style={{ marginRight: "0.5rem" }} />
+                  Upload file
+                </Button>
+              </FileUpload.Trigger>
+              {/* TODO: Change color for file list*/}
+              <FileUpload.List />
+            </FileUpload.Root>
           </FormControl>
 
+          {/*TODO: Display user location if already present in DB*/}
           <FormControl isRequired>
             <FormLabel color={textColor} fontWeight={10} mb={8}>Location</FormLabel>
             <Button
