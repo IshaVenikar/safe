@@ -15,6 +15,8 @@ export default function CardItem({ animal }: { animal: Animal }) {
   const cardText = "#6B4F27";
   const cardDesc = "#C19A6B";
 
+  const daysAgo = Math.floor((Date.now() - new Date(animal.createdAt).getTime()) / (1000 * 60 * 60 * 24));
+
   return (
     <Card.Root
       maxW="sm"
@@ -74,6 +76,9 @@ export default function CardItem({ animal }: { animal: Animal }) {
             maxWidth="100%"
           >
             {animal.details}
+          </Text>
+          <Text textStyle="xs">
+            Posted {daysAgo} days ago
           </Text>
         </Card.Description>
       </Card.Body>
