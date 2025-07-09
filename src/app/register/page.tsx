@@ -103,9 +103,10 @@ export default function RegisterAnimalForm() {
       maxW="md"
       mx="auto"
       mt={8}
+      mb={8}
       p={6}
       borderRadius="lg"
-      bg="#EADDCA"
+      bg={"white"}
       boxShadow="lg"
       color={textColor}
     >
@@ -115,24 +116,37 @@ export default function RegisterAnimalForm() {
       <form onSubmit={handleSubmit(onSubmit)}>
         <VStack align="stretch">
           <FormControl isRequired>
-            <FormLabel color={textColor}>Name</FormLabel>
-            <Input placeholder="What should we call the baby?" {...register('name')} />
+            <FormLabel color={textColor} fontWeight={10} mb={8}>Name</FormLabel>
+            <Input placeholder="What should we call the baby?" {...register('name')} boxShadow="0 4px 16px #0003" border={"grey"} />
           </FormControl>
 
           <FormControl isRequired>
-            <FormLabel color={textColor}>Age</FormLabel>
+            <FormLabel color={textColor} fontWeight={10} mb={8}>Age</FormLabel>
             <Input
               placeholder="How old is the baby?"
               type="number"
               {...register('age', { valueAsNumber: true })}
+              boxShadow="0 4px 16px #0003" border={"grey"}
             />
           </FormControl>
 
           <FormControl isRequired>
-            <FormLabel color={textColor}>Description</FormLabel>
+            <FormLabel color={textColor} fontWeight={10} mb={8}>Contact Number</FormLabel>
+            <Input
+              placeholder="Your contact number"
+              type="number"
+              {...register('contact', { valueAsNumber: true })}
+              boxShadow="0 4px 16px #0003" border={"grey"}
+            />
+          </FormControl>
+
+          <FormControl isRequired>
+            <FormLabel color={textColor} fontWeight={10} mb={8}>Description</FormLabel>
             <Textarea
               placeholder="Please tell us something about the baby"
               {...register('details')}
+              mb={0}
+              boxShadow="0 4px 16px #0003" border={"grey"}
             />
           </FormControl>
 
@@ -146,22 +160,18 @@ export default function RegisterAnimalForm() {
           </FormControl>
 
           <FormControl isRequired>
-            <FormLabel color={textColor}>Upload a cute picture of the baby</FormLabel>
-            <Input
-              type="file"
-              accept="image/*"
-              multiple={false}
-              {...register('imageUrl', { required: true })}
-            />
-          </FormControl>
-
-          <FormControl>
-            <FormLabel color={textColor}>Location</FormLabel>
+            <FormLabel color={textColor} fontWeight={10} mb={8}>Location</FormLabel>
             <Button
+              boxShadow="0 4px 16px #0003"
+              rounded="l3"
+              mb={1}
+              fontWeight={10}
+              aria-label="Location"
               onClick={handleDetectLocation}
               loading={locating}
-              colorScheme="teal"
-              size="sm"
+              _hover={{
+                bgColor: "#F5DEB3",
+              }}
             >
               📍 Auto-detect Location
             </Button>
