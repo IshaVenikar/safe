@@ -28,7 +28,6 @@ type FormData = {
 };
 
 export default function RegisterAnimalForm() {
-  // Register the uploaded file with react-hook-form
   const handleFileChange = (details: { acceptedFiles: File[]; rejectedFiles: any[] }) => {
     const file = details.acceptedFiles[0];
     if (file) {
@@ -187,10 +186,12 @@ export default function RegisterAnimalForm() {
                   Upload file
                 </Button>
               </FileUpload.Trigger>
+              {/* TODO: Change color for file list*/}
               <FileUpload.List />
             </FileUpload.Root>
           </FormControl>
 
+          {/*TODO: Display user location if already present in DB*/}
           <FormControl isRequired>
             <FormLabel color={textColor} fontWeight={10} mb={8}>Location</FormLabel>
             <Button
