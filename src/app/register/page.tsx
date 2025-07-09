@@ -24,7 +24,7 @@ type FormData = {
   age: number;
   details: string;
   imageUrl: FileList;
-  contact: number;
+  contact: string;
 };
 
 export default function RegisterAnimalForm() {
@@ -44,7 +44,7 @@ export default function RegisterAnimalForm() {
     register,
     handleSubmit,
     reset,
-    formState: { isSubmitting },
+    formState: { isSubmitting, errors },
     setValue
   } = useForm<FormData>();
 
@@ -83,7 +83,7 @@ export default function RegisterAnimalForm() {
           name: data.name,
           age: data.age,
           details: data.details,
-          contact: Number(data.contact),
+          contact: data.contact,
           imageUrl: publicUrl,
           userId: user?.id,
         }),
@@ -133,7 +133,7 @@ export default function RegisterAnimalForm() {
           </FormControl>
 
           <FormControl isRequired>
-            <FormLabel color={textColor} fontWeight={10} mb={8}>Age</FormLabel>
+            <FormLabel color={textColor} fontWeight={10} mb={8}>Age (in months)</FormLabel>
             <Input
               placeholder="How old is the baby?"
               type="number"
@@ -143,12 +143,21 @@ export default function RegisterAnimalForm() {
           </FormControl>
 
           <FormControl isRequired>
-            <FormLabel color={textColor} fontWeight={10} mb={8}>Contact Number</FormLabel>
+            <FormLabel color={textColor} fontWeight={10} mb={8}>
+              Contact Number
+            </FormLabel>
             <Input
               placeholder="Your contact number"
-              type="number"
-              {...register('contact', { valueAsNumber: true })}
-              boxShadow="0 4px 16px #0003" border={"grey"}
+              type="text"
+              {...register('contact', {
+                required: 'Contact number is required',
+                pattern: {
+                  value: /^[6-9]\d{9}$/,
+                  message: 'Enter a valid 10-digit phone number',
+                },
+              })}
+              boxShadow="0 4px 16px #0003"
+              border="grey"
             />
           </FormControl>
 
@@ -233,6 +242,11 @@ export default function RegisterAnimalForm() {
                 Google Maps
               </a>
             </Box>
+          )}
+          {errors.contact && (
+            <Text color="red.400" mt={2} fontSize="sm">
+              {errors.contact.message}
+            </Text>
           )}
 
           <Button

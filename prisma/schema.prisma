@@ -30,7 +30,7 @@ model Animal {
   age       Int
   details   String
   status    AnimalStatus?
-  contact   Int
+  contact   String
   imageUrl  String?
   userId    String
   user      User      @relation(fields: [userId], references: [id])
